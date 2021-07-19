@@ -4,7 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </nav>
-    <main class="flex-grow">
+    <main class="flex-grow p-10 max-w-7xl w-full mx-auto">
       <router-view/>
     </main>
     <footer>
