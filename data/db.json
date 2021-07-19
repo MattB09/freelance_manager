@@ -1,0 +1,26 @@
+{
+  "clients": [
+    { "id": 1, "name": "Self"},
+    { "id": 2, "name": "ABC Inc"},
+    { "id": 3, "name": "XYZ Co."},
+    { "id": 4, "name": "Alex Honnold"}
+  ],
+  "projects": [
+    { "id": 1, "clientId": 1, "name": "Freelance Manager", "isActive": true, "start": "2021/06/01", "end": null},
+    { "id": 2, "clientId": 1, "name": "Side project2", "isActive": false, "start": "2021/05/01", "end": "2021/05/21"},
+    { "id": 3, "clientId": 1, "name": "ABC Online Store", "isActive": true, "start": "2021/06/01", "end": null},
+    { "id": 4, "clientId": 1, "name": "XYZ CRM", "isActive": true, "start": "2021/04/01", "end": null},
+    { "id": 5, "clientId": 4, "name": "Free Solo", "isActive": true, "start": "2021/06/01", "end": null},
+    { "id": 6, "clientId": 4, "name": "The Nose", "isActive": false, "start": "2021/04/01", "end": "2021/05/21"}
+  ],
+  "tasks": [
+    { "id": 1, "projectId": 1, "name": "Create dummy data for frontend dev", "isComplete": false, "isBillable": false, "duration": 60},
+    { "id": 2, "projectId": 1, "name": "Set up the project", "isComplete": true, "isBillable": false, "duration": 60},
+    { "id": 3, "projectId": 2, "name": "Do the side project", "isComplete": false, "isBillable": false, "duration": 100},
+    { "id": 4, "projectId": 3, "name": "Develop online store", "isComplete": false, "isBillable": true, "duration": 200},
+    { "id": 5, "projectId": 4, "name": "Develop CRM", "isComplete": false, "isBillable": true, "duration": 250},
+    { "id": 6, "projectId": 5, "name": "Prepare to solo El Cap", "isComplete": true, "isBillable": true, "duration": 300},
+    { "id": 7, "projectId": 6, "name": "Speed climb the nose", "isComplete": true, "isBillable": true, "duration": 85},
+    { "id": 8, "projectId": 5, "name": "Free solo El Cap", "isComplete": false, "isBillable": true, "duration": 250}
+  ]
+}
