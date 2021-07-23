@@ -1,5 +1,5 @@
 export interface Client {
-  id: number; 
+  id: number;
   name: string;
 }
 
@@ -7,16 +7,16 @@ export interface Project {
   id: number;
   clientId?: number;
   name: string;
-  isActive: Boolean;
-  start?: string; // for now because data is coming from json file. 
+  isActive: boolean;
+  start?: string; // for now because data is coming from json file.
   end?: string;
 }
 
 export interface Task {
-  id: number; 
+  id: number;
   projectId: number;
   name: string;
-  isComplete: Boolean;
-  isBillable: Boolean;
+  isComplete: boolean;
+  isBillable: boolean;
   duration: number;
 }
