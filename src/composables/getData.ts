@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { onRenderTriggered, ref, Ref } from 'vue';
+import { ref, Ref } from 'vue';
 import {
   ProjectPartial,
   Project,

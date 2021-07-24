@@ -1,6 +1,7 @@
 <template>
   <div>
     <Projects v-if="view === 'projects'" :projects='projects' :error='error' />
+    <SingleProject v-else-if="view === 'single'" />
   </div>
 </template>
 
@@ -8,11 +9,12 @@
 import { defineComponent, ref } from 'vue';
 
 import Projects from '../components/Projects.vue';
+import SingleProject from '../components/SingleProject.vue';
 import getData from '../composables/getData';
 
 export default defineComponent({
   name: 'AppView',
-  components: { Projects },
+  components: { Projects, SingleProject },
   setup() {
     const { projects, error, load } = getData();
     load();
