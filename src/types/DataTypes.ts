@@ -3,13 +3,13 @@ export interface Client {
   name: string;
 }
 
-export interface Project {
+export interface ProjectPartial {
   id: number;
-  clientId?: number;
+  clientId: number | null;
   name: string;
   isActive: boolean;
-  start?: string; // for now because data is coming from json file.
-  end?: string;
+  start: string | null; // for now because data is coming from json file.
+  end: string | null;
 }
 
 export interface Task {
@@ -19,4 +19,9 @@ export interface Task {
   isComplete: boolean;
   isBillable: boolean;
   duration: number;
+}
+
+export interface Project extends ProjectPartial {
+  clientName: string | null;
+  tasks: Task[];
 }
