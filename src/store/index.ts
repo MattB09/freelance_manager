@@ -1,5 +1,6 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUserStore, Store } from 'vuex';
+import { CHANGE_VIEW } from './mutationTypes';
 
 type View = 'projects' | 'single' | 'task';
 
@@ -14,7 +15,7 @@ export const store = createStore<State>({
     view: 'projects',
   },
   mutations: {
-    changeView(state:State, payload: View):void {
+    [CHANGE_VIEW](state:State, payload: View):void {
       state.view = payload;
     },
   },

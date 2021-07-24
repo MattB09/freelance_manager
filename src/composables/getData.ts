@@ -36,9 +36,7 @@ export default (): {
       error.value = err.message;
     }
 
-    console.log('error value', error.value);
     if (error.value === null) {
-      console.log('projectsvalue if-statement triggered', projectsPartial);
       projects.value = projectsPartial.map((project: ProjectPartial) => {
         let clientName: string | null = null;
         if (project.clientId) {
@@ -47,7 +45,6 @@ export default (): {
         const projectTasks: Task[] = tasks.filter((task: Task) => task.projectId === project.id);
         return { ...project, clientName, tasks: projectTasks };
       });
-      console.log('projectsvalue if-statement finished', projects);
     }
   };
 
