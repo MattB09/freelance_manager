@@ -6,7 +6,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Project from './SingleProject.vue';
 
 export default defineComponent({
   name: 'ProjectList',
