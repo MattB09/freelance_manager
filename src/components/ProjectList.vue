@@ -1,13 +1,12 @@
 <template>
   <div v-for="project of projects" :key="project.id">
-    <h3 @click='selectProject' class="cursor-pointer">{{project.name}}</h3>
+    <h3 @click='() => selectProject(project.id)' class="cursor-pointer">{{project.name}}</h3>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useStore } from '../store';
-import { CHANGE_VIEW } from '../store/mutationTypes';
+import { useStore, mutationTypes } from '@/store';
 
 export default defineComponent({
   name: 'ProjectList',
@@ -16,8 +15,9 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    function selectProject() {
-      store.commit(CHANGE_VIEW, 'single');
+    function selectProject(id: number) {
+      store.commit(mutationTypes.SET_SELECTED_PROJECT, id);
+      store.commit(mutationTypes.CHANGE_VIEW, 'single');
     }
 
     return { selectProject };

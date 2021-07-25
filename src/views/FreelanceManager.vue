@@ -1,27 +1,31 @@
 <template>
   <div>
-    <Projects v-if="store.state.view === 'projects'" :projects='projects' :error='error' />
-    <SingleProject v-else-if="store.state.view === 'single'" />
+    <Projects v-if="store.state.view === 'projects'"
+      :projects='store.state.projects' :error='store.state.error' />
+    <SingleProject v-else-if="store.state.view === 'single' && store.state.selectedProject"
+      :project="project" />
   </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue';
-import Projects from '../components/Projects.vue';
-import SingleProject from '../components/SingleProject.vue';
-import getData from '../composables/getData';
-import { useStore } from '../store';
+import { defineComponent, ref, watchEffect } from 'vue';
+import Projects from '@/components/Projects.vue';
+import SingleProject from '@/components/SingleProject.vue';
+import { useStore, actionTypes } from '@/store';
+import { Project } from '@/types/DataTypes';
 
 export default defineComponent({
   name: 'AppView',
   components: { Projects, SingleProject },
   setup() {
     const store = useStore();
+    store.dispatch(actionTypes.GET_DATA);
 
-    const { projects, error, load } = getData();
-    load();
+    const project = ref<Project | null>();
+    project.value = store.state.projects
+      ?.find((proj) => proj.id === store.state.selectedProject);
 
-    return { projects, error, store };
+    return { store, project };
   },
 });
 </script>
