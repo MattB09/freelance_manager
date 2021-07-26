@@ -1,6 +1,6 @@
 <template>
-  <input type="checkbox" id="completed" v-model="showCompleted">
-  <label for="complete">Show inactive projects</label>
+  <input type="checkbox" id="projectComplete" v-model="showCompleted">
+  <label for="projectComplete">Show inactive projects</label>
   <div v-for="project of filteredProjects" :key="project.id">
     <h3 @click='() => selectProject(project.id)' class="cursor-pointer">{{project.name}}</h3>
   </div>
