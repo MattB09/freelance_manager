@@ -1,9 +1,5 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <nav id="nav" class="">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
     <main class="flex-grow py-4 px-10 xl:px-2 max-w-7xl w-full mx-auto">
       <router-view/>
     </main>
