@@ -16,13 +16,11 @@ export default defineComponent({
   components: { Button },
   setup() {
     const store = useStore();
+    const hidden = computed(() => (store.state.view === 'projects' && true));
 
     function navigateTo(page: View) {
       store.commit(mutationTypes.CHANGE_VIEW, page);
     }
-
-    const hidden = computed(() => (store.state.view === 'projects' && true));
-    console.log('hidden prop from appNav', hidden);
 
     return {
       store, hidden, navigateTo,

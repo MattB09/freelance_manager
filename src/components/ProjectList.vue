@@ -1,11 +1,13 @@
 <template>
-  <div v-for="project of projects" :key="project.id">
+  <input type="checkbox" id="completed" v-model="showCompleted">
+  <label for="complete">Show inactive projects</label>
+  <div v-for="project of filteredProjects" :key="project.id">
     <h3 @click='() => selectProject(project.id)' class="cursor-pointer">{{project.name}}</h3>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
 import { useStore, mutationTypes } from '@/store';
 
 export default defineComponent({
@@ -14,13 +16,21 @@ export default defineComponent({
   emits: ['update:view'],
   setup() {
     const store = useStore();
+    const showCompleted = ref<boolean>(false);
 
     function selectProject(id: number) {
       store.commit(mutationTypes.SET_SELECTED_PROJECT, id);
       store.commit(mutationTypes.CHANGE_VIEW, 'single');
     }
 
-    return { selectProject };
+    const filteredProjects = computed(() => {
+      if (showCompleted.value) return store.state.projects;
+
+      return store.state.projects!
+        .filter((project) => project.isActive);
+    });
+
+    return { selectProject, showCompleted, filteredProjects };
   },
 });
 </script>
