@@ -1,8 +1,8 @@
 <template>
   <nav id="nav" class="">
-    <Button :hidden="hidden"
+    <Button :hidden="hidden" :styling="'mr-2'"
       @click="() => navigateTo('projects')" :text="'Projects'" />
-    <Button :text="'Another nav thing'"/>
+    <Button :text="'Clients'" />
   </nav>
 </template>
 
