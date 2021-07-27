@@ -1,6 +1,6 @@
 <template>
   <button
-    :class="`${bgColor} px-3 py-1 rounded my-2 inline-block ${styling ? styling : ''}`
+    :class="`${bgColor} px-3 py-1 rounded my-2 inline-block ${addStyles ? addStyles : ''}`
     + `${isHidden ? ' hidden': ''}`"
   >
     {{ text }}
@@ -8,14 +8,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, ComputedRef, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'Button',
   props: ['text', 'hidden', 'styling'],
   setup(props) {
     const isHidden = computed(() => (props.hidden === true && true));
-    const bgColor = computed(() => {
+    const bgColor: ComputedRef<string | undefined> = computed(() => {
       if (props.styling?.includes('bg-')) {
         const styles: string[] = props.styling.split(' ');
         return styles.find((style) => style.includes('bg-'));
@@ -23,7 +23,17 @@ export default defineComponent({
       return 'bg-purple-400';
     });
 
-    return { isHidden, bgColor };
+    const addStyles: ComputedRef<string> = computed(() => {
+      if (props.styling?.includes('bg-')) {
+        const copy = props.styling.split(' ');
+        const bgIndex = copy.findIndex((style: string) => style.includes('bg-'));
+        copy.splice(bgIndex, 1);
+        return copy;
+      }
+      return props.styling;
+    });
+
+    return { isHidden, bgColor, addStyles };
   },
 });
 </script>
