@@ -1,5 +1,5 @@
 import axios from 'axios';
-import firebase from '@/firebase';
+import { db, firebase } from '@/firebase';
 import {
   ProjectPartial,
   Project,
@@ -18,28 +18,20 @@ export default async (): Promise<{
   let clients: Client[];
   let tasks: Task[];
 
-  firebase.firestore().collection('users').get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
-    });
-  });
+  const newProjObj = {
+    name: 'test project',
+    isActive: true,
+    tasks: [
+      { name: 'task1', isBillable: false, isComplete: true },
+      { name: 'task2', isBillable: true, isComplete: false },
+    ],
+  };
 
-  console.log('env', process.env.VUE_APP_USER_ID);
-
-  // const newProjObj = {
-  //   name: 'test project',
-  //   isActive: true,
-  //   tasks: [
-  //     { name: 'task1', isBillable: false, isComplete: true },
-  //     { name: 'task2', isBillable: true, isComplete: false },
-  //   ],
-  // }
-
-  // firebase.firestore().collection('users').doc(userId).update({
-  //   projects: firebase.firestore().  .FieldValue.arrayUnion(newProjObj)
-  // })
-  //   .then((res) => console.log('res', res))
-  //   .catch((err) => console.log(err));
+  db.collection('users').doc(process.env.VUE_APP_USER_ID).update({
+    projects: firebase.firestore.FieldValue.arrayUnion(newProjObj),
+  })
+    .then((res) => console.log('res', res))
+    .catch((err) => console.log(err));
 
   try {
     const projectData = await axios.get(`${URLBASE}/projects`);
