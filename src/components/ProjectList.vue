@@ -1,8 +1,8 @@
 <template>
   <input type="checkbox" id="projectComplete" v-model="showCompleted">
   <label for="projectComplete">Show inactive projects</label>
-  <div v-for="project of filteredProjects" :key="project.id">
-    <h3 @click='() => selectProject(project.id)' class="cursor-pointer">{{project.name}}</h3>
+  <div v-for="(project) of filteredProjects" :key="project.name">
+    <h3 @click='() => selectProject(project.name)' class="cursor-pointer">{{project.name}}</h3>
   </div>
 </template>
 
@@ -18,8 +18,8 @@ export default defineComponent({
     const store = useStore();
     const showCompleted = ref<boolean>(false);
 
-    function selectProject(id: number) {
-      store.commit(mutationTypes.SET_SELECTED_PROJECT, id);
+    function selectProject(name: string) {
+      store.commit(mutationTypes.SET_SELECTED_PROJECT, name);
       store.commit(mutationTypes.CHANGE_VIEW, 'single');
     }
 

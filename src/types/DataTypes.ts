@@ -3,25 +3,25 @@ export interface Client {
   name: string;
 }
 
-export interface ProjectPartial {
-  id: number;
-  clientId: number | null;
+export interface Project {
+  clientName?: string;
   name: string;
-  isActive: boolean;
-  start: string | null; // for now because data is coming from json file.
-  end: string | null;
+  isActive?: boolean;
+  start?: Date; // for now because data is coming from json file.
+  end?: Date;
+  tasks?: Task[];
 }
 
 export interface Task {
-  id: number;
-  projectId: number;
+  id?: number;
   name: string;
-  isComplete: boolean;
-  isBillable: boolean;
-  duration: number;
+  isComplete?: boolean;
+  isBillable?: boolean;
+  timeRecords: TimeRecord[];
 }
 
-export interface Project extends ProjectPartial {
-  clientName: string | null;
-  tasks: Task[];
+export interface TimeRecord {
+  startTime: Date;
+  endTime: Date;
+  duration: number;
 }

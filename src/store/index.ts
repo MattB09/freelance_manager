@@ -12,7 +12,7 @@ interface GetDataPayload {
 
 export interface State extends GetDataPayload {
   view: View;
-  selectedProject: number | null;
+  selectedProject: string | null;
 }
 
 export const actionTypes = {
@@ -42,7 +42,7 @@ export const store = createStore<State>({
       state.projects = payload.projects;
       state.error = payload.error;
     },
-    [mutationTypes.SET_SELECTED_PROJECT](state: State, payload: number): void {
+    [mutationTypes.SET_SELECTED_PROJECT](state: State, payload: string): void {
       state.selectedProject = payload;
     },
   },

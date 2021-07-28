@@ -27,11 +27,13 @@
       <h2 class="col-span-3">{{ task.name }}</h2>
       <span class="col-span-1">{{ task.isComplete ? 'Completed' : ''}}</span>
       <span class="col-span-1">{{ task.isBillable ? 'Billable' : ''}}</span>
-      <span class="col-span-1">{{ task.duration + ' mins'}} </span>
+      <!-- <span class="col-span-1">{{ task. ? + ' mins'}} </span> -->
     </div>
 
     <!-- if no tasks display a message-->
-    <h2 v-if="!filteredTasks.length">There are no tasks that meet your selection.</h2>
+    <h2 v-if="filteredTasks !== undefined && filteredTasks.length === 0">
+      There are no tasks that meet your selection.
+    </h2>
   </div>
 </template>
 
@@ -39,6 +41,7 @@
 import { computed, defineComponent, ref } from 'vue';
 import { useStore } from '@/store';
 import Button from '@/components/Button.vue';
+import { Task } from '@/types/DataTypes';
 
 export default defineComponent({
   name: 'SingleProject',
@@ -49,14 +52,13 @@ export default defineComponent({
     const store = useStore();
     const showCompleted = ref<boolean>(false);
 
-    const project = computed(() => store.state.projects
-      ?.find((proj) => proj.id === store.state.selectedProject));
+    const project = computed(() => store.state.projects!
+      .find((proj) => proj.name === store.state.selectedProject)!);
 
     const filteredTasks = computed(() => {
-      if (showCompleted.value) return project.value?.tasks;
+      if (showCompleted.value) return project.value.tasks;
 
-      return project.value?.tasks
-        .filter((task) => !task.isComplete);
+      return project.value.tasks?.filter((task: Task) => !task.isComplete);
     });
 
     return { project, filteredTasks, showCompleted };
