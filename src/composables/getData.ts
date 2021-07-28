@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import dotenv from 'dotenv';
 import firebase from '@/firebase';
 import {
   ProjectPartial,
@@ -7,8 +6,6 @@ import {
   Task,
   Client,
 } from '../types/DataTypes';
-
-// dotenv.config();
 
 export default async (): Promise<{
   projects: Project[] | null,
@@ -21,15 +18,13 @@ export default async (): Promise<{
   let clients: Client[];
   let tasks: Task[];
 
-  // const userId = 'tY4nqkPeyJdb3G1975qhthEc7CG2';
-
   firebase.firestore().collection('users').get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data()}`);
     });
   });
 
-  // console.log(userId, process.env.USER_ID);
+  console.log('env', process.env.VUE_APP_USER_ID);
 
   // const newProjObj = {
   //   name: 'test project',
