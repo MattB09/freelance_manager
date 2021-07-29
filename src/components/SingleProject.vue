@@ -10,9 +10,9 @@
     </div>
 
     <!-- Header for grid of tasks... -->
-    <div class="grid grid-cols-7 gap-2 border-b items-center">
+    <div class="grid grid-cols-6 gap-2 border-b items-center">
       <span class="col-span-1"><Button :text="'+ task'"/></span>
-      <span class="col-span-3">Name</span>
+      <span class="col-span-2">Name</span>
       <span class="col-span-1">Complete</span>
       <span class="col-span-1">Billable</span>
       <span class="col-span-1">Duration</span>
@@ -20,11 +20,11 @@
 
     <!-- Actual Task data -->
     <div v-for="task in filteredTasks" :key="task.id"
-      class="grid grid-cols-7 gap-2 items-center">
+      class="grid grid-cols-6 gap-2 items-center">
       <span class="col-span-1">
         <Button :text="'Record'" :hidden="task.isComplete" :styling="'bg-red-300'"/>
         </span>
-      <h2 class="col-span-3">{{ task.name }}</h2>
+      <h2 class="col-span-2">{{ task.name }}</h2>
       <span class="col-span-1">{{ task.isComplete ? 'Completed' : ''}}</span>
       <span class="col-span-1">{{ task.isBillable ? 'Billable' : ''}}</span>
       <!-- <span class="col-span-1">{{ task. ? + ' mins'}} </span> -->
@@ -41,7 +41,7 @@
 import { computed, defineComponent, ref } from 'vue';
 import { useStore } from '@/store';
 import Button from '@/components/Button.vue';
-import { Task } from '@/types/DataTypes';
+// import { Task } from '@/types/DataTypes';
 
 export default defineComponent({
   name: 'SingleProject',
@@ -56,9 +56,20 @@ export default defineComponent({
       .find((proj) => proj.name === store.state.selectedProject)!);
 
     const filteredTasks = computed(() => {
-      if (showCompleted.value) return project.value.tasks;
+      let copy;
 
-      return project.value.tasks?.filter((task: Task) => !task.isComplete);
+      if (showCompleted.value) {
+        copy = project.value.tasks;
+      } else {
+        copy = project.value.tasks?.filter((task) => !task.isComplete);
+      }
+
+      copy = copy?.sort((a, b) => {
+        if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+        if (b.name.toLowerCase() > a.name.toLowerCase()) return -1;
+        return 0;
+      });
+      return copy;
     });
 
     return { project, filteredTasks, showCompleted };

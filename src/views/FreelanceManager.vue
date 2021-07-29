@@ -13,7 +13,7 @@ import Projects from '@/components/Projects.vue';
 import SingleProject from '@/components/SingleProject.vue';
 import AppNav from '@/components/AppNav.vue';
 import { useStore, actionTypes } from '@/store';
-import { Project } from '@/types/DataTypes';
+// import { Project } from '@/types/DataTypes';
 
 export default defineComponent({
   name: 'AppView',
