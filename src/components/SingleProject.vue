@@ -21,9 +21,11 @@
     <!-- Actual Task data -->
     <div v-for="task in filteredTasks" :key="task.id"
       class="grid grid-cols-6 gap-2 items-center">
-      <span class="col-span-1">
-        <Button :text="'Record'" :hidden="task.isComplete" :styling="'bg-red-300'"/>
-        </span>
+      <span class="col-span-1 place-self-center">
+        <Button :hidden="task.isComplete" class="bg-red-300">
+          Record
+        </Button>
+      </span>
       <h2 class="col-span-2">{{ task.name }}</h2>
       <span class="col-span-1">{{ task.isComplete ? 'Completed' : ''}}</span>
       <span class="col-span-1">{{ task.isBillable ? 'Billable' : ''}}</span>

@@ -1,7 +1,9 @@
 <template>
   <div>
   <h1 class="text-2xl font-semibold mt-0 mb-2">Projects</h1>
-    <span @click='addProject'><Button :text="'+ Project'" /></span>
+    <span @click='addProject'>
+      <Button class="bg-purple-400">+ Project</Button>
+    </span>
     <ProjectModal :visible="modalVisible" />
     <div v-if="error">{{"No data available"}}</div>
     <div v-else-if="projects && projects.length">

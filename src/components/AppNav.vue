@@ -1,10 +1,10 @@
 <template>
   <nav id="nav" class="">
-    <Button :hidden="hidden" class="bg-purple-400"
-      @click="() => navigateTo('projects')" :text="'Projects'">
+    <Button :hidden="hidden" class="bg-purple-400 mr-2"
+      @click="() => navigateTo('projects')" >
       Projects
     </Button>
-    <Button class="bg-purple-400"> 
+    <Button class="bg-purple-400">
       Clients
     </Button>
   </nav>
