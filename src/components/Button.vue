@@ -1,9 +1,12 @@
 <template>
-  <button
+  <!-- <button
     :class="`${bgColor} px-3 py-1 rounded my-2 inline-block ${addStyles ? addStyles : ''}`
     + `${isHidden ? ' hidden': ''}`"
   >
     {{ text }}
+  </button> -->
+  <button v-bind="$attrs" class="btn">
+    <slot></slot>
   </button>
 </template>
 
@@ -37,3 +40,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="postcss" scoped>
+  .btn {
+    @apply px-3 py-1 rounded my-2 inline-block
+  }
+</style>

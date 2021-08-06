@@ -1,8 +1,12 @@
 <template>
   <nav id="nav" class="">
-    <Button :hidden="hidden" :styling="'mr-2'"
-      @click="() => navigateTo('projects')" :text="'Projects'" />
-    <Button :text="'Clients'" />
+    <Button :hidden="hidden" class="bg-purple-400"
+      @click="() => navigateTo('projects')" :text="'Projects'">
+      Projects
+    </Button>
+    <Button class="bg-purple-400"> 
+      Clients
+    </Button>
   </nav>
 </template>
 
