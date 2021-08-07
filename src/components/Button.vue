@@ -1,10 +1,4 @@
 <template>
-  <!-- <button
-    :class="`${bgColor} px-3 py-1 rounded my-2 inline-block ${addStyles ? addStyles : ''}`
-    + `${isHidden ? ' hidden': ''}`"
-  >
-    {{ text }}
-  </button> -->
   <button v-bind="$attrs"
     :class="`px-3 py-1 rounded my-2 inline-block ${isHidden ? 'hidden' : ''}`">
     <slot></slot>
