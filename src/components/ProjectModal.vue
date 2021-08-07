@@ -1,30 +1,31 @@
 <template>
-  <div ref='modal' class="hidden">
-    <h1>Now you see me...</h1>
-  </div>
+  <!-- <div ref='modal' class="hidden">
+  </div> -->
+  <Modal :class="visible ? 'hidden' : ''" :submitFunc="submitFunc"
+  :submitText="'Save'" :cancelFunc="cancelFunc">
+    <template v-slot:title>{{ title }}</template>
+    <template v-slot:default>
+      <input type='text' required />
+    </template>
+  </Modal>
 </template>
 
 <script lang="ts">
 import {
   defineComponent,
-  watchEffect,
-  ref,
-  computed,
 } from 'vue';
+import Modal from '@/components/Modal.vue';
 
 export default defineComponent({
-  props: ['visible'],
-  setup(props) {
-    const modal = ref<HTMLElement | null>(null);
-    const visible = computed(() => props.visible);
+  name: 'ProjectModal',
+  components: { Modal },
+  props: ['visible', 'title', 'cancelFunc'],
+  setup() {
+    function submitFunc() {
+      alert('submit');
+    }
 
-    watchEffect(() => {
-      console.log(visible.value);
-      if (visible.value) (() => modal.value?.classList.remove('hidden'))();
-      else (() => modal.value?.classList.add('hidden'))();
-    });
-
-    return { modal };
+    return { submitFunc };
   },
 });
 </script>

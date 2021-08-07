@@ -4,7 +4,7 @@
     <span @click='addProject'>
       <Button class="bg-purple-400">+ Project</Button>
     </span>
-    <ProjectModal :visible="modalVisible" />
+    <ProjectModal :visible="modalVisible" :title="'Add Project'" :cancelFunc="cancelModal"/>
     <div v-if="error">{{"No data available"}}</div>
     <div v-else-if="projects && projects.length">
       <ProjectList :projects="projects" />
@@ -28,10 +28,13 @@ export default defineComponent({
 
     function addProject() {
       modalVisible.value = !modalVisible.value;
-      console.log('clicked', modalVisible.value);
     }
 
-    return { addProject, modalVisible };
+    function cancelModal() {
+      modalVisible.value = false;
+    }
+
+    return { addProject, modalVisible, cancelModal };
   },
 });
 </script>
