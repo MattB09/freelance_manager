@@ -8,11 +8,11 @@
       <slot></slot>
 
       <div class="text-center sm:text-right mt-4 sm:flex sm:justify-end">
-        <button class="block w-full sm:inline-block sm:w-auto px-4 py-3 sm:py-2 bg-secondary
-        text-background rounded-lg font-semibold text-sm sm:ml-2 sm:order-2" @click="submitFunc" >
+        <Button class="bg-purple-400 sm:order-2"
+        @click="$emit('submit')" >
           {{submitText}}
-        </button>
-        <Button class="bg-gray-400" @click="cancelFunc" >
+        </Button>
+        <Button class="bg-gray-400 sm:order-1 sm:mr-auto" @click="cancelClicked" >
           Cancel
         </Button>
       </div>
@@ -28,8 +28,15 @@ export default defineComponent({
     Button,
   },
   name: 'Modal',
-  props: ['title', 'cancelFunc', 'submitFunc', 'submitText'],
-  // setup() {
-  // },
+  emits: ['canceled', 'submit'],
+  props: ['title', 'submitFunc', 'submitText'],
+  setup(props, context) {
+    function cancelClicked() {
+      context.emit('canceled');
+      console.log('from Modal component');
+    }
+
+    return { cancelClicked };
+  },
 });
 </script>

@@ -6,7 +6,9 @@
       and contain information with links to sign up.
     </p>
     <router-link to="/app">
-      <Button class="bg-purple-400">Go to the App!</Button>
+      <Button class="bg-purple-400">
+        Go to the App!
+      </Button>
     </router-link>
   </div>
 </template>

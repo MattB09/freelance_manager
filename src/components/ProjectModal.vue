@@ -1,31 +1,36 @@
 <template>
   <!-- <div ref='modal' class="hidden">
   </div> -->
-  <Modal :class="visible ? 'hidden' : ''" :submitFunc="submitFunc"
-  :submitText="'Save'" :cancelFunc="cancelFunc">
+  <Modal :class="!visible ? 'hidden' : ''" @submit="handleSubmit"
+  :submitText="'Save'" @canceled="$emit('canceled')">
     <template v-slot:title>{{ title }}</template>
     <template v-slot:default>
-      <input type='text' required />
+      <label for="project-name">Project Name: </label>
+      <input id="project-name" type='text' v-model="projectName" required />
     </template>
+
   </Modal>
 </template>
 
 <script lang="ts">
 import {
   defineComponent,
+  ref,
 } from 'vue';
 import Modal from '@/components/Modal.vue';
 
 export default defineComponent({
   name: 'ProjectModal',
   components: { Modal },
-  props: ['visible', 'title', 'cancelFunc'],
+  emits: ['canceled'],
+  props: ['visible', 'title'],
   setup() {
-    function submitFunc() {
-      alert('submit');
-    }
+    const projectName = ref<string>('');
 
-    return { submitFunc };
+    function handleSubmit() {
+      console.log('submit clicked', projectName.value);
+    }
+    return { handleSubmit, projectName };
   },
 });
 </script>
