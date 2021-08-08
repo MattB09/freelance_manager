@@ -1,5 +1,5 @@
 <template>
-  <div v-bind="$attrs" class="bg-background rounded-lg sm:max-w-md sm:mx-auto p-4
+  <div v-bind="$attrs" class="bg-white rounded-lg sm:max-w-md sm:mx-auto p-4
   fixed inset-x-0 top-16 z-50 mb-4 mx-4 max-h-modal-fit  overflow-y-scroll md:overflow-y-auto">
     <p class="font-bold text-lg">
         <slot class="font-bold text-lg" name="title"></slot>

@@ -1,14 +1,13 @@
 <template>
-  <!-- <div ref='modal' class="hidden">
-  </div> -->
   <Modal :class="!visible ? 'hidden' : ''" @submit="handleSubmit"
   :submitText="'Save'" @canceled="$emit('canceled')">
     <template v-slot:title>{{ title }}</template>
     <template v-slot:default>
       <label for="project-name">Project Name: </label>
-      <input id="project-name" type='text' v-model="projectName" required />
+      <input id="project-name" type='text' v-model="projectName" required
+        class="appearance-none rounded py-2 px-3 border border-gray-400 hover:border-gray-700
+        leading-tight"/>
     </template>
-
   </Modal>
 </template>
 
