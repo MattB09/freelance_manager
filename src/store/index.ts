@@ -2,6 +2,7 @@ import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUserStore, Store } from 'vuex';
 import { Project } from '@/types/DataTypes';
 import getData from '@/composables/getData';
+import addProject from '@/composables/addProject';
 
 export type View = 'projects' | 'single' | 'task';
 
@@ -57,7 +58,7 @@ export const store = createStore<State>({
       commit(mutationTypes.SET_DATA, await getData());
     },
     async [actionTypes.ADD_PROJECT]({ commit }:any, payload: Project): Promise<void> {
-      console.log('payload', payload);
+      console.log('payload', addProject(payload));
       commit(mutationTypes.ADD_PROJECT, payload);
     },
   },

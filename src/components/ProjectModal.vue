@@ -21,16 +21,18 @@
         <label for="start-date" class="col-span-2">
           Start<span class="text-red-500 font-semibold">*</span>
         </label>
-        <input type="date" id="start-date" v-model="startDate"
+        <input type="date" id="start-date" v-model="start"
           class="appearance-none rounded py-1 px-3 border border-gray-400 hover:border-gray-700
           leading-tight flex-grow ml-2 col-span-6" />
 
         <label for="end-date" class="col-span-2">
           End
         </label>
-        <input type="date" id="start-date" v-model="endDate"
+        <input type="date" id="start-date" v-model="end"
         class="appearance-none rounded py-1 px-3 border border-gray-400 hover:border-gray-700
         leading-tight flex-grow ml-2 col-span-6" />
+
+        <span class="text-red-600 col-span-8">{{formError}}</span>
       </div>
     </template>
   </Modal>
@@ -43,6 +45,7 @@ import {
 } from 'vue';
 import { useStore, actionTypes } from '@/store';
 import Modal from '@/components/Modal.vue';
+import { Project } from '@/types/DataTypes';
 
 export default defineComponent({
   name: 'ProjectModal',
@@ -54,31 +57,40 @@ export default defineComponent({
 
     const projectName = ref<string>('');
     const isActive = ref<boolean>(false);
-    const startDate = ref<Date>();
-    const endDate = ref<Date>();
-
-    function handleSubmit() {
-      console.log('submit clicked', projectName.value, isActive.value, startDate.value, endDate.value);
-      const payload = {
-        name: projectName.value,
-        isActive: isActive.value,
-        startDate: startDate.value,
-        tasks: [],
-        endDate: endDate.value,
-      };
-      store.dispatch(actionTypes.ADD_PROJECT, payload);
-    }
+    const start = ref<Date>();
+    const end = ref<Date>();
+    const formError = ref<string>('');
 
     function handleCancel() {
       projectName.value = '';
       isActive.value = false;
-      startDate.value = undefined;
-      endDate.value = undefined;
+      start.value = undefined;
+      end.value = undefined;
+      formError.value = '';
       context.emit('canceled');
     }
 
+    function handleSubmit() {
+      console.log('submit clicked', projectName.value, isActive.value, start.value, end.value);
+      if (!projectName.value || !start.value) {
+        formError.value = 'Must fill out fields with a *';
+        return;
+      }
+
+      const payload: Project = {
+        name: projectName.value,
+        isActive: isActive.value,
+        start: start.value,
+        tasks: [],
+      };
+      if (end.value) payload.end = end.value;
+
+      store.dispatch(actionTypes.ADD_PROJECT, payload);
+      handleCancel();
+    }
+
     return {
-      handleSubmit, handleCancel, projectName, isActive, startDate, endDate,
+      handleSubmit, handleCancel, projectName, isActive, start, end, formError,
     };
   },
 });
