@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {},
     maxHeight: {
-      'modal-fit': 'calc(100vh - 100px)'
-    }
+      'modal-fit': 'calc(100vh - 100px)',
+    },
   },
   variants: {
     extend: {

@@ -3,13 +3,10 @@ export interface Client {
   name: string;
 }
 
-export interface Project {
-  clientName?: string;
-  name: string;
-  isActive?: boolean;
-  start?: Date; // for now because data is coming from json file.
-  end?: Date;
-  tasks?: Task[];
+export interface TimeRecord {
+  startTime: Date;
+  endTime: Date;
+  duration: number;
 }
 
 export interface Task {
@@ -20,8 +17,11 @@ export interface Task {
   timeRecords: TimeRecord[];
 }
 
-export interface TimeRecord {
-  startTime: Date;
-  endTime: Date;
-  duration: number;
+export interface Project {
+  clientName?: string;
+  name: string;
+  isActive?: boolean;
+  start?: Date;
+  end?: Date;
+  tasks?: Task[];
 }

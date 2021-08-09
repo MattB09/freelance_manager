@@ -41,6 +41,7 @@ import {
   defineComponent,
   ref,
 } from 'vue';
+import { useStore, actionTypes } from '@/store';
 import Modal from '@/components/Modal.vue';
 
 export default defineComponent({
@@ -49,6 +50,8 @@ export default defineComponent({
   emits: ['canceled'],
   props: ['visible', 'title'],
   setup(props, context) {
+    const store = useStore();
+
     const projectName = ref<string>('');
     const isActive = ref<boolean>(false);
     const startDate = ref<Date>();
@@ -56,6 +59,14 @@ export default defineComponent({
 
     function handleSubmit() {
       console.log('submit clicked', projectName.value, isActive.value, startDate.value, endDate.value);
+      const payload = {
+        name: projectName.value,
+        isActive: isActive.value,
+        startDate: startDate.value,
+        tasks: [],
+        endDate: endDate.value,
+      };
+      store.dispatch(actionTypes.ADD_PROJECT, payload);
     }
 
     function handleCancel() {
