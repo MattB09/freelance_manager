@@ -3,34 +3,16 @@
 
     <h1 class="text-2xl font-semibold mt-0 mb-2">{{ project && project.name }}</h1>
 
+    <Button class="bg-purple-400">+ Task</Button>
+
     <!-- Filters -->
     <div class="block">
-      <input type="checkbox" id="taskComplete" v-model="showCompleted">
+      <input type="checkbox" id="taskComplete" v-model="showCompleted" />
       <label class="ml-2" for="taskComplete">Show completed tasks</label>
     </div>
 
-    <!-- Header for grid of tasks... -->
-    <div class="grid grid-cols-6 gap-2 border-b items-center">
-      <span class="col-span-1"><Button :text="'+ task'"/></span>
-      <span class="col-span-2">Name</span>
-      <span class="col-span-1">Complete</span>
-      <span class="col-span-1">Billable</span>
-      <span class="col-span-1">Duration</span>
-    </div>
-
-    <!-- Actual Task data -->
-    <div v-for="task in filteredTasks" :key="task.id"
-      class="grid grid-cols-6 gap-2 items-center">
-      <span class="col-span-1 place-self-center">
-        <Button :hidden="task.isComplete" class="bg-red-300">
-          Record
-        </Button>
-      </span>
-      <h2 class="col-span-2">{{ task.name }}</h2>
-      <span class="col-span-1">{{ task.isComplete ? 'Completed' : ''}}</span>
-      <span class="col-span-1">{{ task.isBillable ? 'Billable' : ''}}</span>
-      <!-- <span class="col-span-1">{{ task. ? + ' mins'}} </span> -->
-    </div>
+    <!-- Task list -->
+    <TaskList :tasks=filteredTasks />
 
     <!-- if no tasks display a message-->
     <h2 v-if="filteredTasks !== undefined && filteredTasks.length === 0">
@@ -42,12 +24,14 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import { useStore } from '@/store';
+import TaskList from '@/components/TaskList.vue';
 import Button from '@/components/Button.vue';
 // import { Task } from '@/types/DataTypes';
 
 export default defineComponent({
   name: 'SingleProject',
   components: {
+    TaskList,
     Button,
   },
   setup() {
