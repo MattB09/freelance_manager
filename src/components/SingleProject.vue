@@ -3,7 +3,9 @@
 
     <h1 class="text-2xl font-semibold mt-0 mb-2">{{ project && project.name }}</h1>
 
-    <Button class="bg-purple-400">+ Task</Button>
+    <Button class="bg-purple-400" @click="addTask">
+      + Task
+    </Button>
 
     <!-- Filters -->
     <div class="block">
@@ -23,7 +25,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { useStore } from '@/store';
+import { useStore, actionTypes } from '@/store';
 import TaskList from '@/components/TaskList.vue';
 import Button from '@/components/Button.vue';
 // import { Task } from '@/types/DataTypes';
@@ -58,7 +60,14 @@ export default defineComponent({
       return copy;
     });
 
-    return { project, filteredTasks, showCompleted };
+    function addTask() {
+      store.dispatch(actionTypes.ADD_TASK);
+      console.log('added');
+    }
+
+    return {
+      project, filteredTasks, showCompleted, addTask,
+    };
   },
 });
 </script>

@@ -1,7 +1,7 @@
 import { db } from '@/firebase';
 import {
   Project,
-} from '../types/DataTypes';
+} from '@/types/DataTypes';
 
 export default async (): Promise<{
   projects: Project[] | null,
