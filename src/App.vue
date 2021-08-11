@@ -5,7 +5,7 @@
     </main>
     <footer>
       <p class="text-center p-4 border-t border-gray-300">
-        Placeholder for footer component
+        © 2021 FREELANCE MANAGER. ALL RIGHTS RESERVED. 
       </p>
     </footer>
   </div>
