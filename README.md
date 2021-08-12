@@ -25,3 +25,8 @@ npm run build
 npm run lint
 ```
 
+## Technologies used
+- TypeScript
+- Vue / Vuex / Vue Router
+- Firebase auth and Firestore
+- TailwindCSS
