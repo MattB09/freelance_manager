@@ -8,7 +8,11 @@
     </Button>
 
     <!-- Task list -->
-    <TaskList :tasks="project.tasks" />
+    <div v-if="store.state.error">Error loading tasks...</div>
+    <div v-else-if="project.tasks">
+      <TaskList :tasks="project.tasks" />
+    </div>
+    <div v-else>Loading...</div>
 
   </div>
 </template>
@@ -28,22 +32,13 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    // let tasks: null | Task[] = null;
 
     const project = computed(() => store.state.projects!
       .find((proj) => proj.id === store.state.selectedProject)!);
 
     // if tasks have been loaded once, use store otherwise fetch tasks
-    console.log('project.value', project.value);
     if (!project.value.tasks) {
-      console.log('making an api call!');
       store.dispatch(actionTypes.GET_TASKS, { user: store.state.user, project: project.value.id });
-      // tasks = [
-      //   { name: 'task1', isComplete: false },
-      //   { name: 'task2', isComplete: true },
-      // ];
-    } else {
-      console.log('api call not needed', project.value.tasks);
     }
 
     function addTask() {

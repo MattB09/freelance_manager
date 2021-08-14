@@ -75,16 +75,12 @@ export const store = createStore<State>({
       if (payload.tasks && state.projects) {
         const projectsCopy = [...state.projects];
         const projInd = projectsCopy.findIndex((proj) => proj.id === state.selectedProject);
-        console.log('first if', projInd, projectsCopy);
         const updatedProj = projectsCopy[projInd];
         updatedProj.tasks = payload.tasks;
-        console.log('updatedProj', updatedProj);
         projectsCopy.splice(projInd, 1, updatedProj);
         state.projects = [...projectsCopy];
-        console.log('copy', projectsCopy);
       }
       state.error = payload.error;
-      console.log('after proj value', state.projects);
     },
     [mutationTypes.ADD_PROJECT](state: State, payload: Project): void {
       state.projects = state.projects ? [...state.projects, payload] : [payload];

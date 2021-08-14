@@ -6,11 +6,11 @@
       + Project
     </Button>
     <ProjectModal :visible="modalVisible" :title="'Add Project'" @canceled="cancelModal" />
-    <div v-if="error">{{"No data available"}}</div>
+    <div v-if="error">No data available</div>
     <div v-else-if="projects && projects.length">
       <ProjectList :projects="projects" />
     </div>
-    <div v-else>Loading</div>
+    <div v-else>Loading...</div>
   </div>
 </template>
 
