@@ -77,15 +77,15 @@ export default defineComponent({
         return;
       }
 
-      const payload: Project = {
+      const newProject: Project = {
         name: projectName.value,
         isActive: isActive.value,
         start: start.value,
         tasks: [],
       };
-      if (end.value) payload.end = end.value;
+      if (end.value) newProject.end = end.value;
 
-      store.dispatch(actionTypes.ADD_PROJECT, payload);
+      store.dispatch(actionTypes.ADD_PROJECT, { newProject, user: store.state.user });
       handleCancel();
     }
 

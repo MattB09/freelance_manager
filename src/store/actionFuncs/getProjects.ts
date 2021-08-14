@@ -15,7 +15,7 @@ export default async (userId: string): Promise<{
   try {
     const res = await userRef.get();
     res.forEach((proj) => {
-      if (proj.data() && projects) projects.push(<Project>proj.data());
+      if (proj.data() && projects) projects.push({ ...<Project>proj.data(), id: proj.id });
     });
   } catch (err) {
     error = err.message;

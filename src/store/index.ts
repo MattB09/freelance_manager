@@ -18,6 +18,11 @@ export interface State extends GetProjectsPayload {
   user: string;
 }
 
+interface AddProjectPayload {
+  newProject: Project;
+  user: string;
+}
+
 export const actionTypes = {
   GET_PROJECTS: 'GET_PROJECTS',
   ADD_PROJECT: 'ADD_PROJECT',
@@ -54,7 +59,6 @@ export const store = createStore<State>({
       state.selectedProject = payload;
     },
     [mutationTypes.ADD_PROJECT](state: State, payload: Project): void {
-      console.log('from mutation', payload);
       state.projects = state.projects ? [...state.projects, payload] : [payload];
     },
   },
@@ -62,9 +66,10 @@ export const store = createStore<State>({
     async [actionTypes.GET_PROJECTS]({ commit }:any, payload: string): Promise<void> {
       commit(mutationTypes.SET_PROJECTS, await getProjects(payload));
     },
-    async [actionTypes.ADD_PROJECT]({ commit }:any, payload: Project): Promise<void> {
-      addProject(payload);
-      commit(mutationTypes.ADD_PROJECT, payload);
+    async [actionTypes.ADD_PROJECT]({ commit }:any, { newProject, user }: AddProjectPayload)
+    : Promise<void> {
+      addProject(newProject, user);
+      commit(mutationTypes.ADD_PROJECT, newProject);
     },
     async [actionTypes.ADD_TASK]({ commit }:any, payload: Task): Promise<void> {
       console.log('payload in add task', addTask(payload));

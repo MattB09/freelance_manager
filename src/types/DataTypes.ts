@@ -18,6 +18,7 @@ export interface Task {
 }
 
 export interface Project {
+  id?: string;
   clientName?: string;
   name: string;
   isActive?: boolean;

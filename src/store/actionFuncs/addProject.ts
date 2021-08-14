@@ -3,20 +3,17 @@ import {
   Project,
 } from '@/types/DataTypes';
 
-export default async (newProject: Project): Promise<{
+export default async (newProject: Project, userId: string): Promise<{
   project: Project | null,
   error: string | null,
 }> => {
   let error: string | null = null;
   let project: Project | null = null;
 
-  const userRef = db.collection('users').doc(process.env.VUE_APP_USER_ID);
+  const projectsRef = db.collection('users').doc(userId).collection('projects');
 
   try {
-    const res = await userRef.update({
-      projects: firebase.firestore.FieldValue.arrayUnion(newProject),
-    });
-    console.log(res);
+    await projectsRef.add(newProject);
     project = newProject;
   } catch (err) {
     error = err.message;
