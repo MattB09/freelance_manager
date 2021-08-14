@@ -32,7 +32,6 @@ export default defineComponent({
     }
 
     function cancelModal() {
-      console.log('from projects component');
       modalVisible.value = false;
     }
 

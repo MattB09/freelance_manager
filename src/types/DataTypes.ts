@@ -10,7 +10,7 @@ export interface TimeRecord {
 }
 
 export interface Task {
-  id?: number;
+  id?: string;
   name: string;
   isComplete?: boolean;
   isBillable?: boolean;

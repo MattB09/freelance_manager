@@ -8,17 +8,13 @@
     </Button>
 
     <!-- Task list -->
-    <TaskList :tasks=tasks />
+    <TaskList :tasks="project.tasks" />
 
-    <!-- if no tasks display a message-->
-    <h2 v-if="tasks !== undefined && tasks.length === 0">
-      There are no tasks that meet your selection.
-    </h2>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { useStore, actionTypes } from '@/store';
 import TaskList from '@/components/TaskList.vue';
 import Button from '@/components/Button.vue';
@@ -32,13 +28,23 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const tasks = ref<Task[]>([
-      { name: 'task1', isComplete: false },
-      { name: 'task2', isComplete: true },
-    ]);
+    // let tasks: null | Task[] = null;
 
     const project = computed(() => store.state.projects!
       .find((proj) => proj.id === store.state.selectedProject)!);
+
+    // if tasks have been loaded once, use store otherwise fetch tasks
+    console.log('project.value', project.value);
+    if (!project.value.tasks) {
+      console.log('making an api call!');
+      store.dispatch(actionTypes.GET_TASKS, { user: store.state.user, project: project.value.id });
+      // tasks = [
+      //   { name: 'task1', isComplete: false },
+      //   { name: 'task2', isComplete: true },
+      // ];
+    } else {
+      console.log('api call not needed', project.value.tasks);
+    }
 
     function addTask() {
       store.dispatch(actionTypes.ADD_TASK);
@@ -46,7 +52,7 @@ export default defineComponent({
     }
 
     return {
-      project, addTask, tasks,
+      project, addTask, store,
     };
   },
 });

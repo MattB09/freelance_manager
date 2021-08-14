@@ -34,7 +34,6 @@ export default defineComponent({
   setup(props, context) {
     function cancelClicked() {
       context.emit('canceled');
-      console.log('from Modal component');
     }
 
     return { cancelClicked };

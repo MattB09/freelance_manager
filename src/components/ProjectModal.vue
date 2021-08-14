@@ -71,7 +71,6 @@ export default defineComponent({
     }
 
     function handleSubmit() {
-      console.log('submit clicked', projectName.value, isActive.value, start.value, end.value);
       if (!projectName.value || !start.value) {
         formError.value = 'Must fill out fields with a *';
         return;
@@ -81,7 +80,6 @@ export default defineComponent({
         name: projectName.value,
         isActive: isActive.value,
         start: start.value,
-        tasks: [],
       };
       if (end.value) newProject.end = end.value;
 

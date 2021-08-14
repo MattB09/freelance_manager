@@ -27,6 +27,11 @@
     <span class="col-span-1">{{ task.isBillable ? 'Billable' : ''}}</span>
     <!-- <span class="col-span-1">{{ task. ? + ' mins'}} </span> -->
   </div>
+
+  <!-- if no tasks display a message-->
+  <h2 v-if="filteredTasks.length === 0">
+    There are no tasks that meet your selection.
+  </h2>
 </template>
 
 <script lang="ts">
@@ -44,6 +49,8 @@ export default defineComponent({
     const showCompleted = ref<boolean>(false);
 
     const filteredTasks = computed(() => {
+      console.log('props.tasks', props.tasks);
+      if (props.tasks === undefined) return [];
       let copy;
 
       if (showCompleted.value) {
