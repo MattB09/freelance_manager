@@ -3,14 +3,14 @@ import {
   Project,
 } from '@/types/DataTypes';
 
-export default async (): Promise<{
+export default async (userId: string): Promise<{
   projects: Project[] | null,
   error: string | null,
 }> => {
   let error: string | null = (null);
   let projects: Project[] | null = [];
 
-  const userRef = db.collection('users').doc(process.env.VUE_APP_USER_ID).collection('projects');
+  const userRef = db.collection('users').doc(userId).collection('projects');
 
   try {
     const res = await userRef.get();

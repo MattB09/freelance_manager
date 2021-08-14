@@ -20,7 +20,7 @@ export default defineComponent({
   components: { AppNav, Projects, SingleProject },
   setup() {
     const store = useStore();
-    store.dispatch(actionTypes.GET_DATA);
+    store.dispatch(actionTypes.GET_PROJECTS, store.state.user);
 
     return { store };
   },
