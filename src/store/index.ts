@@ -1,7 +1,7 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUserStore, Store } from 'vuex';
 import { Project, Task } from '@/types/DataTypes';
-import getData from '@/store/actionFuncs/getData';
+import getData from '@/store/actionFuncs/getProjects';
 import addProject from '@/store/actionFuncs/addProject';
 import addTask from '@/store/actionFuncs/addTask';
 

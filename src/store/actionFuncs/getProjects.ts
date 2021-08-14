@@ -8,15 +8,18 @@ export default async (): Promise<{
   error: string | null,
 }> => {
   let error: string | null = (null);
-  let projects: Project[] | null = null;
+  let projects: Project[] | null = [];
 
-  const userRef = db.collection('users').doc(process.env.VUE_APP_USER_ID);
+  const userRef = db.collection('users').doc(process.env.VUE_APP_USER_ID).collection('projects');
 
   try {
     const res = await userRef.get();
-    projects = res.data()?.projects;
+    res.forEach((proj) => {
+      if (proj.data() && projects) projects.push(<Project>proj.data());
+    });
   } catch (err) {
     error = err.message;
+    projects = null;
   }
 
   return { projects, error };
