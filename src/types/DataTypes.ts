@@ -14,7 +14,7 @@ export interface Task {
   name: string;
   isComplete?: boolean;
   isBillable?: boolean;
-  timeRecords: TimeRecord[];
+  timeRecords?: TimeRecord[];
 }
 
 export interface Project {

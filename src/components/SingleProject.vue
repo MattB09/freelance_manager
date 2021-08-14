@@ -7,17 +7,11 @@
       + Task
     </Button>
 
-    <!-- Filters -->
-    <div class="block">
-      <input type="checkbox" id="taskComplete" v-model="showCompleted" />
-      <label class="ml-2" for="taskComplete">Show completed tasks</label>
-    </div>
-
     <!-- Task list -->
-    <TaskList :tasks=filteredTasks />
+    <TaskList :tasks=tasks />
 
     <!-- if no tasks display a message-->
-    <h2 v-if="filteredTasks !== undefined && filteredTasks.length === 0">
+    <h2 v-if="tasks !== undefined && tasks.length === 0">
       There are no tasks that meet your selection.
     </h2>
   </div>
@@ -28,7 +22,7 @@ import { computed, defineComponent, ref } from 'vue';
 import { useStore, actionTypes } from '@/store';
 import TaskList from '@/components/TaskList.vue';
 import Button from '@/components/Button.vue';
-// import { Task } from '@/types/DataTypes';
+import { Task } from '@/types/DataTypes';
 
 export default defineComponent({
   name: 'SingleProject',
@@ -38,27 +32,13 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const showCompleted = ref<boolean>(false);
+    const tasks = ref<Task[]>([
+      { name: 'task1', isComplete: false },
+      { name: 'task2', isComplete: true },
+    ]);
 
     const project = computed(() => store.state.projects!
-      .find((proj) => proj.name === store.state.selectedProject)!);
-
-    const filteredTasks = computed(() => {
-      let copy;
-
-      if (showCompleted.value) {
-        copy = project.value.tasks;
-      } else {
-        copy = project.value.tasks?.filter((task) => !task.isComplete);
-      }
-
-      copy = copy?.sort((a, b) => {
-        if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-        if (b.name.toLowerCase() > a.name.toLowerCase()) return -1;
-        return 0;
-      });
-      return copy;
-    });
+      .find((proj) => proj.id === store.state.selectedProject)!);
 
     function addTask() {
       store.dispatch(actionTypes.ADD_TASK);
@@ -66,7 +46,7 @@ export default defineComponent({
     }
 
     return {
-      project, filteredTasks, showCompleted, addTask,
+      project, addTask, tasks,
     };
   },
 });
