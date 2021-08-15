@@ -6,7 +6,7 @@
   </div>
 
   <!-- Header for grid of tasks... -->
-  <div class="grid grid-cols-6 gap-2 border-b items-center">
+  <div class="grid grid-cols-6 gap-2 border-b items-center mb-2">
     <span class="col-span-1"></span>
     <span class="col-span-2">Name</span>
     <span class="col-span-1">Complete</span>

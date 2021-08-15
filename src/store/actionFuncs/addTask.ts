@@ -14,7 +14,6 @@ export default async (newTask: Task, userId: string, projectId: string): Promise
 
   try {
     const res = await tasksRef.add(newTask);
-    console.log(res);
     task = newTask;
     task.id = res.id;
   } catch (err) {
