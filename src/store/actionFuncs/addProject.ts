@@ -13,8 +13,10 @@ export default async (newProject: Project, userId: string): Promise<{
   const projectsRef = db.collection('users').doc(userId).collection('projects');
 
   try {
-    await projectsRef.add(newProject);
+    const res = await projectsRef.add(newProject);
+    console.log(res.id);
     project = newProject;
+    project.id = res.id;
   } catch (err) {
     error = err.message;
   }

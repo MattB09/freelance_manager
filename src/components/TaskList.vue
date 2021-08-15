@@ -49,7 +49,6 @@ export default defineComponent({
     const showCompleted = ref<boolean>(false);
 
     const filteredTasks = computed(() => {
-      console.log('props.tasks', props.tasks);
       if (props.tasks === undefined) return [];
       let copy;
 
