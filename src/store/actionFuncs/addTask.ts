@@ -1,19 +1,22 @@
 import { db, firebase } from '@/firebase';
 import { Task } from '@/types/DataTypes';
 
-export default async (newTask: Task): Promise<{
+export default async (newTask: Task, userId: string, projectId: string): Promise<{
   task: Task | null,
   error: string |null,
 }> => {
   let error: string | null = null;
   let task: Task | null = null;
-  // const userRef = db.collection('users').doc(process.env.VUE_APP_USER_ID);
+
+  const tasksRef = db.collection('users').doc(userId)
+    .collection('projects').doc(projectId)
+    .collection('tasks');
 
   try {
-    // const res = await userRef.update({
-    //   projects:
-    // })
+    const res = await tasksRef.add(newTask);
+    console.log(res);
     task = newTask;
+    task.id = res.id;
   } catch (err) {
     error = err.message;
   }

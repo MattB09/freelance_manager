@@ -14,7 +14,6 @@ export default async (newProject: Project, userId: string): Promise<{
 
   try {
     const res = await projectsRef.add(newProject);
-    console.log(res.id);
     project = newProject;
     project.id = res.id;
   } catch (err) {

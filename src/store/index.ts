@@ -34,6 +34,12 @@ interface SetTasksPayload {
   error: string | null;
 }
 
+interface AddTaskPayload {
+  newTask: Task;
+  user: string;
+  project: string;
+}
+
 export const actionTypes = {
   GET_PROJECTS: 'GET_PROJECTS',
   GET_TASKS: 'GET_TASKS',
@@ -85,6 +91,16 @@ export const store = createStore<State>({
     [mutationTypes.ADD_PROJECT](state: State, payload: Project): void {
       state.projects = state.projects ? [...state.projects, payload] : [payload];
     },
+    [mutationTypes.ADD_TASK](state: State, payload: Task): void {
+      if (state.projects) {
+        const projectsCopy = [...state.projects];
+        const projInd = projectsCopy.findIndex((proj) => proj.id === state.selectedProject);
+        const updatedProj = projectsCopy[projInd];
+        if (updatedProj.tasks) updatedProj.tasks.push(payload);
+        projectsCopy.splice(projInd, 1, updatedProj);
+        state.projects = [...projectsCopy];
+      }
+    },
   },
   actions: {
     async [actionTypes.GET_PROJECTS]({ commit }:any, payload: string): Promise<void> {
@@ -96,12 +112,15 @@ export const store = createStore<State>({
     },
     async [actionTypes.ADD_PROJECT]({ commit }:any, { newProject, user }: AddProjectPayload)
     : Promise<void> {
-      addProject(newProject, user);
-      commit(mutationTypes.ADD_PROJECT, newProject);
+      const { project, error } = await addProject(newProject, user);
+      console.log('error', error);
+      commit(mutationTypes.ADD_PROJECT, project);
     },
-    async [actionTypes.ADD_TASK]({ commit }:any, payload: Task): Promise<void> {
-      console.log('payload in add task', addTask(payload));
-      // commit(mutationTypes.ADD_PROJECT, payload);
+    async [actionTypes.ADD_TASK]({ commit }:any, { newTask, user, project }: AddTaskPayload)
+    : Promise<void> {
+      const { error, task } = await addTask(newTask, user, project);
+      console.log('from store', error, task);
+      commit(mutationTypes.ADD_TASK, task);
     },
   },
 });

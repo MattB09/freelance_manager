@@ -42,7 +42,13 @@ export default defineComponent({
     }
 
     function addTask() {
-      store.dispatch(actionTypes.ADD_TASK);
+      const newTask: Task = {
+        name: 'test task',
+        isComplete: false,
+      };
+      store.dispatch(actionTypes.ADD_TASK, {
+        newTask, user: store.state.user, project: project.value.id,
+      });
       console.log('added');
     }
 
