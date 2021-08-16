@@ -32,7 +32,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-, "src/components/SingleProject.vue", "src/views/FreelanceManager.vue"  ],
+, "src/components/SingleProject.vue", "src/views/FreelanceManager.vue", "src/components/projectModals/EditProjectModal.vue"  ],
   "exclude": [
     "node_modules"
   ]
